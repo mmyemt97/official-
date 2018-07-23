@@ -16,6 +16,7 @@ public class test {
 		
 		for(chucVu cv : dsChucVu) {
 			System.out.println("Mã cv : " + cv.getMa_chuc_vu() + " - " + "Tên chuc vu: " + cv.getChuc_vu());
+			System.out.println("test");
 		}
 	}
 
