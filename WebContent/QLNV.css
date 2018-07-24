@@ -93,7 +93,7 @@ body{
   
 }
 
-.QLNV{
+.QLTV{
    border: none;
    padding: 10px;
    background-color: #00cec9;
@@ -139,6 +139,9 @@ body{
     border-collapse: collapse;
 }
 
+.table{
+    margin-left: 10%;
+}
 
 
 #btsub{

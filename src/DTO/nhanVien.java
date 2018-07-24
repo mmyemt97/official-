@@ -7,11 +7,12 @@ public class nhanVien implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private int idnhan_vien;
 	private String username;
 	private String password;
 	private String ho_nhan_vien;
 	private String ten_nhan_vien;
+	private String chuc_vu;
 	private String email;
 	private int sdt;
 	
@@ -26,21 +27,14 @@ public class nhanVien implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-
-
-	public int getId() {
-		return id;
+	
+	public int getIdnhan_vien() {
+		return idnhan_vien;
 	}
 
-
-
-	public void setId(int id) {
-		this.id = id;
+	public void setIdnhan_vien(int idnhan_vien) {
+		this.idnhan_vien = idnhan_vien;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -72,6 +66,14 @@ public class nhanVien implements Serializable {
 
 	public void setTen_nhan_vien(String ten_nhan_vien) {
 		this.ten_nhan_vien = ten_nhan_vien;
+	}
+	
+	public String getChuc_vu() {
+		return chuc_vu;
+	}
+
+	public void setChuc_vu(String chuc_vu) {
+		this.chuc_vu = chuc_vu;
 	}
 
 	public int getSdt() {

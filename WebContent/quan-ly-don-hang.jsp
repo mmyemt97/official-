@@ -33,14 +33,20 @@
         <div class="container">
             
         <div class="dieuhuong">
-            <a href="QLThanhVien.html" target="blank">
+            <a href="quan-ly-thanh-vien.jsp" target="blank">
                 <input type="button" class="QLTV" value="Quản Lý Thành Viên">
             </a>
         </div>
 
         <div class="dieuhuong">
-            <a href="QLhanghoa.html" target="blank">
+            <a href="quan-ly-san-pham.jsp" target="blank">
                 <input type="button" class="QLSP" value="Quản Lý Sản Phẩm">
+            </a>
+        </div>
+        
+        <div class="dieuhuong">
+            <a href="quan-ly-nhan-vien.jsp" target="blank">
+                <input type="button" class="QLNV" value="Quản Lý Nhân Viên">
             </a>
         </div>
 
