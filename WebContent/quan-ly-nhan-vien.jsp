@@ -19,9 +19,9 @@
                     <div id="nameNV"> 
                         <p>Xin chào </p>
                         <!--Tên nhân viên lấy từ CSDL-->
-                        <p>Admin</p>
+                        <p>${sessionScope.staff.ten_nhan_vien}</p>
                         <div class="dangxuat">
-                            <a href="#" class="logout">Đăng xuất</a>
+                            <a href="DangXuat" class="logout">Đăng xuất</a>
                         </div>
         
                     </div>
@@ -61,7 +61,7 @@
                     <!--bảng này để đổ dữ liệu từ dưới CDSL lên-->
                     <div class="table">
                         <table id="table1">
-                            <p class="title1">DANH SÁCH KHÁCH HÀNG</p>
+                            <p class="title1">DANH SÁCH NHÂN VIÊN</p>
                             <thead>
                                 <tr>
                                     <th>Mã Nhân Viên</th>

@@ -1,4 +1,4 @@
-package DAO;
+package DAO.DuPhong;
 
 import java.sql.*;
 
@@ -32,10 +32,13 @@ public class nhanVienBL {
 		nhanVien nv_dangnhap = null;
 		
 		try {
+			String sql = "select*from nhan_vien where username = ? and password = ? ";
 			Connection db = Database.connect();
-			Statement stm = db.createStatement();
-			ResultSet rs = stm.executeQuery("select*from nhan_vien where username = '"+username+"' and password = '"+password+"' ");
+			PreparedStatement pst = db.prepareStatement(sql);
+			pst.setString(1, username);
+			pst.setString(2, password);
 			
+			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				nv_dangnhap = new nhanVien();
 				nv_dangnhap.setUsername(rs.getString("username"));
@@ -45,6 +48,19 @@ public class nhanVienBL {
 				nv_dangnhap.setEmail(rs.getString("email"));
 				nv_dangnhap.setSdt(rs.getInt("sdt"));
 			}
+			/* lỗi SQL Injection cú pháp: ' or '1' = '1'
+			 * Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select*from nhan_vien where username = '"+username+"' and password = '"+password+"' ");
+			 where pass = ' 
+			while(rs.next()) {
+				nv_dangnhap = new nhanVien();
+				nv_dangnhap.setUsername(rs.getString("username"));
+				nv_dangnhap.setPassword(rs.getString("password"));
+				nv_dangnhap.setHo_nhan_vien(rs.getString("ho_nhan_vien"));
+				nv_dangnhap.setTen_nhan_vien(rs.getString("ten_nhan_vien"));
+				nv_dangnhap.setEmail(rs.getString("email"));
+				nv_dangnhap.setSdt(rs.getInt("sdt"));
+			}*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

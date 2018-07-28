@@ -76,6 +76,7 @@ function luu2() {
         txt6.disabled = true;
         txt7.disabled = true;
         txt8.disabled = true;
+        
 
     }
 }

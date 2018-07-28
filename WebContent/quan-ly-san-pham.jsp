@@ -62,9 +62,9 @@
 		            <div id="nameNV"> 
 		                <p>Xin chào </p>
 		                <!--Tên nhân viên lấy từ CSDL-->
-		                <p>Admin</p>
+		                <p>${sessionScope.staff.ten_nhan_vien}</p>
 		                <div class="dangxuat">
-		                    <a href="#" class="logout">Đăng xuất</a>
+		                    <a href="DangXuat" class="logout">Đăng xuất</a>
 		                </div>
 		
 		            </div>
@@ -93,9 +93,9 @@
 		            </div>
 		
 		            <div class="search">
-		                <form action="#" method="POST" class="fSearch">
-		                    <input type="search" placeholder="Tìm kiếm sản phẩm" id="txtSearch" size="30">
-		                    <input type="button" value="" id="btSearch">
+		                <form action="timSPTheoTen" method="POST" class="fSearch">
+		                    <input type="search" name="txtTen" placeholder="Tìm kiếm sản phẩm" id="txtSearch" size="30">
+		                    <input type="submit" value="" id="btSearch">
 		                </form>
 		            </div>
 		
@@ -147,7 +147,7 @@
 			                                <a href="DocCTSanPham?id=<%=rs.getString("ma_san_pham")%>">Sửa</a>
 			                            </td>
 			                            <td class="SX">
-			                                <a href="#">Xóa</a>
+			                                <a href="XoaSanPham?id=<%=rs.getString("ma_san_pham")%>">Xóa</a>
 			                            </td>
 			                        </tr>
 			 					 <%}%>

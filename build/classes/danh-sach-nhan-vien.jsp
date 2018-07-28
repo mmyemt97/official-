@@ -13,10 +13,10 @@
         <td>${nv.email}</td>
         <td>${nv.sdt}</td>
         <td class="SX">
-            <a href="#">Sửa</a>
+            <a href="chiTietNhanVien?id=${nv.idnhan_vien}">Sửa</a>
         </td>
         <td class="SX">
-            <a href="#">Xóa</a>
+            <a href="XoaNhanVien?id=${nv.idnhan_vien}">Xóa</a>
         </td>
     </tr>
 </c:forEach>

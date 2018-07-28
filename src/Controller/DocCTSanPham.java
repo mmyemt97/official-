@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.xml.rpc.processor.generator.InterfaceSerializerGenerator;
 
-import DAO.CTSanPhamDAO;
-import DAO.CTThanhVienDAO;
+import DAO.SanPhamDAO;
+import DAO.ThanhVienDAO;
 import DTO.SanPham;
 import DTO.ThanhVien;
 
@@ -34,9 +34,11 @@ public class DocCTSanPham extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		SanPham ChiTietSanPham = CTSanPhamDAO.docTheoID(id);
+		SanPham ChiTietSanPham = SanPhamDAO.docTheoID(id);
 		if(ChiTietSanPham != null) {
+			response.setContentType("image/jpg");
 			System.out.println("gia: " + ChiTietSanPham.getGiaSanPham());
+			System.out.println("path: " + ChiTietSanPham.getHinh_anh());
 			request.setAttribute("chitiet", ChiTietSanPham);
 			request.getRequestDispatcher("Views/staff/chi-tiet-san-pham-nv.jsp").forward(request, response);
 		}

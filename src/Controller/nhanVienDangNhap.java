@@ -24,7 +24,7 @@ public class nhanVienDangNhap extends HttpServlet {
 		username = request.getParameter("user");
 		password = request.getParameter("password");
 		
-		nhanVien nv_dangnhap = nhanVienBL.docTheoUsernamePassword(username, password);
+		nhanVien nv_dangnhap = nhanVienDAO.docTheoUsernamePassword(username, password);
 		if(nv_dangnhap != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("staff", nv_dangnhap);

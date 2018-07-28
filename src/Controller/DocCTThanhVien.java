@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.CTSanPhamDAO;
-import DAO.CTThanhVienDAO;
+import DAO.SanPhamDAO;
+import DAO.ThanhVienDAO;
 import DTO.SanPham;
 import DTO.ThanhVien;
 
@@ -32,7 +32,7 @@ public class DocCTThanhVien extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		ThanhVien ChiTietThanhVien = CTThanhVienDAO.docTheoID(id);
+		ThanhVien ChiTietThanhVien = ThanhVienDAO.docTheoID(id);
 		if(ChiTietThanhVien != null) {
 			System.out.println("iduser: " + ChiTietThanhVien.getIduser());
 			request.setAttribute("chitiet", ChiTietThanhVien);

@@ -1,4 +1,4 @@
-package DAO;
+package DAO.DuPhong;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package DAO;
+package DAO.DuPhong;
 
 import java.sql.SQLException;
 import com.mysql.jdbc.Connection;

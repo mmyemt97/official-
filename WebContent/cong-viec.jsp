@@ -125,7 +125,18 @@
 	                                </div>
 	                              </div>
 	                            </div>
-	                            
+	                            <div>
+	                              <div class="project-item">
+	                                <a href="#" data-lightbox="image-1"><img src="staff-main/img/project-item-03.jpg" alt=""></a>
+	                                <div class="text-content">
+	                                  <h4>Quản lý nhân viên</h4>
+	                                  <p>Tất cả nhân viên trong công ty.</p>
+	                                  <div class="primary-button">
+	                                    <a href="quan-ly-nhan-vien.jsp">Xem nhân viên</a>
+	                                  </div>
+	                                </div>
+	                              </div>
+	                            </div>
 	                          </div>
 	                        </div>
 	                      </div>

@@ -21,9 +21,9 @@
             <div id="nameNV"> 
                 <p>Xin chào </p>
                 <!--Tên nhân viên lấy từ CSDL-->
-                <p>Admin</p>
+                <p>${sessionScope.staff.ten_nhan_vien}</p>
                 <div class="dangxuat">
-                    <a href="#" class="logout">Đăng xuất</a>
+                    <a href="DangXuat" class="logout">Đăng xuất</a>
                 </div>
 
             </div>

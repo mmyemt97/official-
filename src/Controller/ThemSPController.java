@@ -21,7 +21,7 @@ import Database.Database;
  * Servlet implementation class ThemSPController
  */
 @WebServlet("/ThemSPController")
-@MultipartConfig(location = "D:\\Android\\HinhDB"
+@MultipartConfig(location = "D:\\Android\\HinhDB\\SP"
 , fileSizeThreshold = 1024 * 1024
 , maxFileSize = 1024 * 1024 * 5
 , maxRequestSize = 1024 * 1024 * 5 * 5)
@@ -103,6 +103,7 @@ public class ThemSPController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
         if(upload != 0) {
         	request.getRequestDispatcher("dang-ky-thanh-cong.jsp").forward(request, response);
         }

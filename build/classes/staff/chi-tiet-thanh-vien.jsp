@@ -9,23 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chi Tiết Thành Viên</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="CTTV.css" />
-    <script type="text/javascript" src="CTTV.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="Views/staff/CTTV.css" />
+    <script type="text/javascript" src="Views/staff/CTTV.js"></script>
 </head>
 <body>
 
         <div class="top">
                 <div class="container">
                     <div id="logo">
-                        <h3>Chi Tiết Sản Phẩm</h3>
+                        <h3>Chi Tiết Thành Viên</h3>
                     </div>
         
                     <div id="nameNV"> 
                         <p>Xin chào </p>
                         <!--Tên nhân viên lấy từ CSDL-->
-                        <p>Admin</p>
+                        <p>${sessionScope.staff.ten_nhan_vien}</p>
                         <div class="dangxuat">
-                            <a href="#" class="logout">Đăng xuất</a>
+                            <a href="DangXuat" class="logout">Đăng xuất</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="container">
                     <div class="thongtin">
                         <div class="tensp">
-                            <p>${chitiet.ten_user}</p>
+                            <p> Thành Viên ${chitiet.ten_user}</p>
                         </div>
                         <table class="table">
                             <tr>
@@ -126,12 +126,59 @@
                             <tr>
                                 <td colspan="2">
                                     <form action="#" method="POST" id="fix">
-                                        <input type="button" value="Edit" id="btfix" onclick="bt1()">
-                                        <input type="submit" value="Save" id="btsave">
+                                        <input type="button" value="Edit" id="btfix" onclick="show()">
+                                <input type="button" value="Save" id="btsave" onclick="show1()">
                                     </form>
                                 </td>
                             </tr>
                         </table>
+                        
+                        <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <form action="#" method="POST" id="ask1">
+                                <span class="close1" onclick="dong()">&times;</span>
+                                <table id="alert">
+                                    <tr>
+                                        <th colspan="2">Bạn có muốn sửa sản phẩm không?</th>
+                                    </tr>
+    
+                                    <tr>
+                                        <td>
+                                            <input type="button" value="Có" id="yes" class="btask" onclick="bt1(); bt();">
+                                        </td>
+    
+                                        <td>
+                                            <input type="button" value="Không" id="no" class="btask" onclick="dong()">
+                                        </td>
+                                    </tr>
+                                </table>
+                        </form>
+                    </div>
+                </div>
+                
+                
+                <div id="myModal1" class="modal">
+                <div class="modal-content">
+                    <form action="#" method="POST" id="ask2">
+                        <span class="close1" onclick="dong()">&times;</span>
+                        <table id="alert1">
+                                <tr>
+                                        <th colspan="2">Bạn có muốn lưu không?</th>
+                                    </tr>
+    
+                                    <tr>
+                                        <td>
+                                            <input type="button" value="Có" id="yes" class="btask" onclick="bt1(); luu(); luu2(); dong1();">
+                                        </td>
+    
+                                        <td>
+                                            <input type="button" value="Không" id="no" class="btask" onclick="dong1()">
+                                        </td>
+                                    </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
                         
                     </div>
                 </div>

@@ -1,25 +1,31 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-import DAO.ThemNVDAO;
-import DTO.nhanVien;
 import Database.*;
 
 /**
  * Servlet implementation class ThemNVController
  */
 @WebServlet("/ThemNVController")
+@MultipartConfig(location = "D:\\Android\\HinhDB\\NV"
+, fileSizeThreshold = 1024 * 1024
+, maxFileSize = 1024 * 1024 * 5
+, maxRequestSize = 1024 * 1024 * 5 * 5)
+
 public class ThemNVController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,25 +53,63 @@ public class ThemNVController extends HttpServlet {
 		String ten_nhan_vien = request.getParameter("txtTenNhanVien");
 		String email = request.getParameter("txtEmail");
 		int sdt = Integer.parseInt(request.getParameter("txtsdt"));
+		int ma_chuc_vu = Integer.parseInt(request.getParameter("txtMaChucVu"));
+		System.out.println("Ma chuc vu: " +  ma_chuc_vu); 
+		InputStream inputStream = null;
 		
-		nhanVien nv = new nhanVien();
-		nv.setId(id);
-		nv.setPassword(password);
-		nv.setEmail(email);
-		nv.setSdt(sdt);
-		nv.setHo_nhan_vien(ho_nhan_vien);
-		nv.setTen_nhan_vien(ten_nhan_vien);
-		nv.setUsername(username);
+		Part hinhNhanVien = request.getPart("txtHinhNhanVien");
 		
-		int themNhanVien = 0;
-		themNhanVien = ThemNVDAO.Them(nv);
-		
-		if(themNhanVien != 0) {
-			request.getRequestDispatcher("success.jsp").forward(request, response);
+		System.out.println(hinhNhanVien.getName());
+		System.out.println(hinhNhanVien.getSize());
+		System.out.println(hinhNhanVien.getContentType());
+		// obtains input stream of the upload file
+        inputStream = hinhNhanVien.getInputStream();
+        
+        int upload = 0;
+        Connection db = Database.connect();
+        
+        try {
+        	String sql = "INSERT INTO nhan_vien (`idnhan_vien`, username, password, `ho_nhan_vien`, `ten_nhan_vien`, email, sdt,`hinh_nhan_vien`,`ma_chuc_vu`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			PreparedStatement pst = (PreparedStatement) db.prepareStatement(sql);
+			
+			pst.setInt(1, id);
+			pst.setString(2, username);
+			pst.setString(3, password);
+			pst.setString(4, ho_nhan_vien);
+			pst.setString(5, ten_nhan_vien);
+			pst.setString(6, email);
+			pst.setInt(7, sdt);
+			pst.setBlob(8, inputStream);
+			pst.setInt(9, ma_chuc_vu);
+			
+			
+			upload = pst.executeUpdate();
+			
+			db.close();
+			
+			if(upload !=0) {
+				request.getRequestDispatcher("success.jsp").forward(request, response);
+	
+			}
+			else {
+				response.sendRedirect("dang-ky-loi.jsp");
+			}
+			
+			
+        
+        
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else {
-			response.sendRedirect("error.jsp");
-		}
+        
+        if(upload != 0) {
+        	request.getRequestDispatcher("dang-ky-thanh-cong.jsp").forward(request, response);
+        }
+        else {
+        	response.sendRedirect("dang-ky-loi.jsp");
+        }
+        
 		
 	}
 

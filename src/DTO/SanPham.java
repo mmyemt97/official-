@@ -11,14 +11,29 @@ public class SanPham implements Serializable {
 	private String hangSanXuat;
 	private int giaSanPham;
 	private String tinhTrang;
-	private Blob hinh_dai_dien;
+	private Blob hinh_dai_dien; // upload, va lay du lieu 
 	private String camera_truoc;
 	private String camera_sau;
 	private String dung_luong_pin;
 	private String tinh_nang;
 	private String bao_mat;
 	private String mau_sac;
+	private String hinh_anh; // hien anh
 	
+	
+	
+	
+	
+	public String getHinh_anh() {
+		return hinh_anh;
+	}
+
+
+	public void setHinh_anh(String hinh_anh) {
+		this.hinh_anh = hinh_anh;
+	}
+
+
 	public SanPham() {
 		super();
 	}
