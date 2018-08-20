@@ -5,7 +5,7 @@
 <%@ page import="DTO.*" %>
 <%@ page import="java.sql.*"%>
 
-<!-- Khách Hàng vào thì in câu này -->
+<!-- Khách Hàng vào thì in câu này-->
 <c:if test="${sessionScope.member != null}">
 	<h1> Bạn không có quyền truy cập trang này!</h1>
 </c:if>
@@ -21,8 +21,8 @@
 		    <title>Quản Lý Sản Phẩm</title>
 		    <meta name="viewport" content="width=device-width, initial-scale=1">
 		    <link rel="stylesheet" type="text/css" media="screen" href="QLHH.css" />
-		    <script src="QLHH.js"></script>
-		
+			<script src="QLHH.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		    <%!
 		    Connection db = Database.connect();
 		    Statement stm = null;
@@ -91,6 +91,10 @@
 		                    <input type="button" class="QLNV" value="Quản Lý Nhân Viên">
 		                </a>
 		            </div>
+		            
+		            <div class="dieuhuong">
+                    	<input type="button" class="QLNV" id="searchCC" value="Tìm kiếm nâng cao">
+            		</div>
 		
 		            <div class="search">
 		                <form action="timSPTheoTen" method="POST" class="fSearch">
@@ -98,18 +102,62 @@
 		                    <input type="submit" value="" id="btSearch">
 		                </form>
 		            </div>
-		
-		        </div>
-		
-		
-		
-		
+		            <script>
+		            	
+		            </script>
+		            
+		            <div class="searchCC">
+		                <div class="brand">
+		                    <strong>Tìm theo hãng:</strong>
+		                    <select id="hang" onchange="changeFunc()">
+		                        <option value="#"> --Chọn hãng-- </option>
+		                        <option value="Apple">Apple</option>
+		                        <option value="Samsung">Samsung</option>
+		                        <option value="Sony">Sony</option>
+		                        <option value="Beats">Beats</option> 
+		                        <option value="Nokia">Nokia</option>
+		                        <option value="Oppo">Oppo</option>
+		                        <option value="Asus">Asus</option>
+		                        <option value="HTC">HTC</option>
+		                        <option value="Vivo">Vivo</option>
+		                        <option value="Philips">Philips</option>
+		                        <option value="Osmia">Osmia</option>
+		                        <option value="Cosano">Cosano</option>
+		                        <option value="Solid">Solid</option>
+		                        <option value="eValu">eValu</option>
+		                        <option value="eSaver">eSaver</option>
+		                        
+		                    </select>
+		                </div>
+		    
+		                <div class="price">
+		                    <strong>Tìm theo giá:</strong>
+		                    <select id="gia" onchange="changeFuncPrice();">
+		                        <option value="#">-- Mức Giá --</option>
+		                        <option value="1">Dưới 1 triệu</option>
+		                        <option value="2">1 - 3 triệu</option>
+		                        <option value="3">3 - 7 triệu</option>
+		                        <option value="4">7 - 10 triệu</option>
+		                        <option value="5">Trên 10 triệu</option>
+		                    </select>
+		                </div>
+            		</div>
+            		
+            		
+
+		            
+                    
 		    </div>
+		    </div>
+		    
+		    <br>
+            <br>
 		    
 		    <div class="main">
 		        <div class="container">
 		            <div class="table">
 		                <p class="title">DANH SÁCH SẢN PHẨM</p>
+		                <form action="" method="POST" id="ask1">
 		                <table id="sp">
 		                    <thead>
 		                        <tr>
@@ -130,7 +178,10 @@
 		                    </thead>
 		
 		                    <tbody>
-		                        <%while(rs.next()){ %>
+		                    	<% int id = 0; %>
+		                        <%while(rs.next()){
+		                        	id = Integer.parseInt(rs.getString("ma_san_pham"));
+	                        	%>
 			                        <tr class="odd">	                            
 									    <td><%=rs.getString("ma_san_pham") %></td>
 									    <td><a href="DocCTSanPham?id=<%=rs.getString("ma_san_pham")%>"><%=rs.getString("ten_san_pham") %> </a></td>
@@ -144,15 +195,43 @@
 									    <td><%=rs.getString("mau_sac") %></td>
 									    <td><%=rs.getString("bao_mat") %></td>
 			                            <td class="SX">
-			                                <a href="DocCTSanPham?id=<%=rs.getString("ma_san_pham")%>">Sửa</a>
+			                                <a href="DocCTSanPham?id=<%=rs.getString("ma_san_pham")%>">
+			                                	<input type="button" value="Sửa" class="xoa">
+			                                </a>
 			                            </td>
 			                            <td class="SX">
-			                                <a href="XoaSanPham?id=<%=rs.getString("ma_san_pham")%>">Xóa</a>
+			                                	<input type="button" value="Xóa" class="xoa" onclick="xoa()">
+			                                <!--<a href="#" onclick="xoa()">Xóa</a>  -->
 			                            </td>
 			                        </tr>
-			 					 <%}%>
+			 					 <%}rs.close();%>
 		                    </tbody>
 		                </table>
+		                
+		                <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close1" onclick="dong()">&times;</span>
+                            <table id="alert">
+                                <tr>
+                                    <th colspan="2">Bạn có muốn xóa sản phẩm không?</th>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                    	<a href="XoaSanPham?id=<%=id%>">
+                                        	<input type="button" value="Có" id="yes" class="btask" onclick="dong()">
+                                        </a>
+                                    </td>
+
+                                    <td>
+		                                <input type="button" value="Không" id="no" class="btask" onclick="dong()">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+		                
+		                </form>
 		            </div>
 		
 		            <div class="pagination-bar">
@@ -168,54 +247,147 @@
 		            </div>
 		
 		            <div class="bt">
-		                <a href="ThemSP.html" target="_blank">
+		                <a href="them-san-pham.jsp" target="_blank">
 		                    <input type="submit" value="Thêm sản phẩm" id="btthem" class="btThem">
 		                </a>
 		                <!--<input type="submit" value="Sửa sản phẩm" id="btxoa" class="btReset">-->
 		            </div>
 		        </div>
 		    </div>
-		
-		    <!--<script>
-		    var modal = document.getElementById('myModal');
-		    var modal1 = document.getElementById('myModal1');
-		    var bt = document.getElementById("btthem");
-		    var btxoa = document.getElementById("btxoa");
-		    var span = document.getElementsByClassName("close")[0];
-		    var span1 = document.getElementsByClassName("close1")[0];
-		
-		
-		    bt.onclick = function(){
-		        modal.style.display = "block";
-		    }
-		
-		    span.onclick = function(){
-		        modal.style.display = "none";
-		    }
-		
-		    window.onclick = function(){
-		        if(event.target == modal){
-		            modal.style.display = "none";
-		        }
-		        else if(event.target == modal1){
-		            modal1.style.display = "none";
-		        }
-		    }
-		
-		    btxoa.onclick = function(){
-		        modal1.style.display = "block";
-		    }
-		
-		    span1.onclick = function(){
-		        modal1.style.display = "none";
-		    }
-		
-		
-		
-		
 		    
-		    </script>-->
+		    <div class="footer">
+				        <div class="container">
+				            <div class="btanhien">
+				                <input type="button" value="Góp Ý" id="btGopY" onclick="on()">
+				            </div>
+				            <div class="fMess" id="fMess">
+				                <div id="live-chat">
+				                    <header class="clearfix">
+				                        <div class="chat-close"><strong>X</strong></div>
+				
+				                        <h4>Góp Ý</h4>
+				                     
+				                    </header>
+				
+				                    <div class="chat">
+				                        <form action="GopY" method="POST" name="fChat" id="fChat">
+				                            <table class="tChat">
+				                                <tr class="dong">
+				                                    <th>
+				                                        To Email:
+				                                    </th>
+				                                    <td>
+				                                        <input type="email" name="txtNguoiNhan" placeholder="Nhập email người nhận" class="txt" id="txt">
+				                                    </td>
+				                                </tr>
+				
+				                                <tr class="dong">
+				                                    <th>
+				                                        From Email:
+				                                    </th>
+				                                    <td>
+				                                        <input type="email" name="txtNguoiGui" placeholder="Nhập email của bạn" class="txt" id="txt1">
+				                                    </td>
+				                                </tr>
+				                                
+				                                <tr class="dong">
+				                                    <th>
+				                                        Tiêu Đề:
+				                                    </th>
+				                                    <td>
+				                                        <input type="text" name="txtTieuDe" placeholder="Nhập email của bạn" class="txt" id="txt3">
+				                                    </td>
+				                                </tr>
+				
+				                                <tr class="dong">
+				                                    <th>
+				                                        Password:
+				                                    </th>
+				                                    <td>
+				                                        <input type="password" name="txtPassword" placeholder="Nhập mật khẩu của bạn" class="txt" id="txt2">
+				                                    </td>
+				                                </tr>
+				
+				                                <tr class="dong">
+				                                    <th>
+				                                        Nội dung:
+				                                    </th>
+				                                    <td>
+				                                        <textarea placeholder="Nhập nội dung" name="txtNoiDung" class="txtarea" rows="20" cols="25"></textarea>
+				                                    </td>
+				                                </tr>
+				
+				                                <tr>
+				                                    <td colspan="2">
+				                                        <div class="btMess">
+				                                            <input type="submit" value="Gửi" class="btGui">
+				                                            <input type="button" value="Xóa" class="btXoa" onclick="reset()">
+				                                        </div>
+				                                    </td>
+				                                </tr>
+				
+				                            </table>
+				                        </form>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
 		
+		    <script>
+		    (function() {
+
+	            $('#live-chat header').on('click', function() {
+	        
+	                $('.chat').slideToggle(300);
+	        
+	            });
+	
+	            $('.chat-close').on('click', function(e) {
+	
+	            e.preventDefault();
+	            $('#live-chat').fadeOut(300);
+	
+	            });
+
+        	});
+
+		    $(document).ready(function(){
+	            $("#searchCC").click(function(){
+	                $(".searchCC").fadeToggle();
+	            });
+	        });
+		    
+		    function changeFunc() {
+                var selectBox = document.getElementById("hang");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                window.open("timSPTheoHang?brand="+selectedValue);
+            }
+		     
+            function changeFuncPrice() {
+                var selectBox = document.getElementById("gia");
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                window.open("timSPTheoGia?options="+selectedValue);
+            }
+
+		    function reset() {
+		        var form = document.getElementById("fChat");
+
+		        form.reset();
+		    }
+
+		    function on(){
+		    	var modal =  document.getElementById("fMess");
+
+		    	if(modal.style.display == "none")
+		    		modal.style.display = "block";
+		    	else
+		    		modal.style.display = "none";
+		    }
+
+
+
+    </script>
 		</body>
 		</html>
 	</c:if>

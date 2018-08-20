@@ -25,14 +25,14 @@ public class chiTietNhanVien extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/** mo roi ma`
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		nhanVien ChiTietNhanVien = nhanVienDAO.docTheoID(id);		
 		if(ChiTietNhanVien != null) {
-			System.out.println("Ten "+ ChiTietNhanVien.getTen_nhan_vien()); 
+			System.out.println("Chuc vu "+ ChiTietNhanVien.getChuc_vu()); 
 			response.setContentType("image/jpg");
 			request.setAttribute("chitiet", ChiTietNhanVien);
 			request.getRequestDispatcher("Views/chi-tiet-nhan-vien.jsp").forward(request, response);

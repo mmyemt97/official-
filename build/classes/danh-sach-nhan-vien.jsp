@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:forEach items = "${dsnv}" var = "nv">
+<c:forEach items = "${dsnv}" var = "nv">	
 	<tr>
         <td>${nv.idnhan_vien}</td>
         <td>${nv.username}</td>
@@ -13,10 +13,16 @@
         <td>${nv.email}</td>
         <td>${nv.sdt}</td>
         <td class="SX">
-            <a href="chiTietNhanVien?id=${nv.idnhan_vien}">Sửa</a>
+            <a href="chiTietNhanVien?id=${nv.idnhan_vien}">
+            	<input type="button" value="Sửa" class="xoa">
+            </a>
         </td>
         <td class="SX">
-            <a href="XoaNhanVien?id=${nv.idnhan_vien}">Xóa</a>
+           	<input type="button" value="Xóa" class="xoa" onclick="xoa()">
+            <!--<a href="#" onclick="xoa()">Xóa</a>  -->
         </td>
     </tr>
+    
+    
+    
 </c:forEach>

@@ -66,11 +66,11 @@ public class GopY extends HttpServlet {
 				InternetAddress.parse(to));
 			message.setSubject(title); // 
 			message.setText(context);
-
+			message.setContent(context, "text/html; charset=utf-8");
 			Transport.send(message);
 
 			System.out.println("Done");
-			request.getRequestDispatcher("Views/Success.jsp").forward(request, response);
+			request.getRequestDispatcher("quan-ly-san-pham.jsp").forward(request, response);
 		} catch (MessagingException e) {
 			request.getRequestDispatcher("Views/loi.jsp").forward(request, response);
 

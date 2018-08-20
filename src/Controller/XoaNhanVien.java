@@ -33,7 +33,7 @@ public class XoaNhanVien extends HttpServlet {
 		xoaNV = nhanVienDAO.XoaNhanVien(idnhan_vien);
 		if(xoaNV != 0) {
 			// xoa thanh cong - them code hien thi hinh` di
-			request.getRequestDispatcher("success.jsp").forward(request, response);
+			request.getRequestDispatcher("quan-ly-nhan-vien.jsp").forward(request, response);
 		}
 		else {
 			response.sendRedirect("loi.jsp");

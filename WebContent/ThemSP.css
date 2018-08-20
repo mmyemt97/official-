@@ -15,7 +15,7 @@ body{
 .top{
     height: 130px;
     width: 100%;
-    background-color: #00cec9;
+    background-color: #4267B2;
 }
 
 #logo{
@@ -25,7 +25,7 @@ body{
 }
 
 #logo h3{
-    color: black;
+    color: white;
     font-size: 40px;
 }
 
@@ -39,12 +39,13 @@ body{
  #nameNV p{
      float: left;
      padding-right: 15px;
-     
+     color: white;
  }
 
 .dangxuat{
     margin-top: 15px;
     float: left;
+    color: white;
 }
 
  .logout{
@@ -52,10 +53,11 @@ body{
      text-decoration: none;
      color: black;
      padding-left: 20px;
+     color: white;
  }
 
  .logout a:hover,  .logout a:visited{
-     color: black;
+     color: white;
  }
 
 
@@ -92,7 +94,7 @@ body{
     float: left;
     border: none;
     border-radius: 7px;
-    background-color: #00cec9;
+    background-color: #4267B2;
     color: white;
     font-size: 25px;
     font-weight: bold;

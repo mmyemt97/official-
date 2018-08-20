@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="images/favicon.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <title>Thêm Sản Phẩm</title>
+    <title>ThÃªm Sáº£n Pháº©m</title>
     <script src="ThemSP.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="ThemSP.css" />
 </head>
@@ -14,15 +17,15 @@
         <div class="top">
                 <div class="container">
                     <div id="logo">
-                        <h3>Thêm Sản Phẩm</h3>
+                        <h3>ThÃªm Sáº£n Pháº©m</h3>
                     </div>
         
                     <div id="nameNV"> 
-                        <p>Xin chào </p>
-                        <!--Tên nhân viên lấy từ CSDL-->
-                        <p>Admin</p>
+                        <p>Xin chÃ o </p>
+                        <!--TÃªn nhÃ¢n viÃªn láº¥y tá»« CSDL-->
+                        <p>${sessionScope.staff.ten_nhan_vien}</p>
                         <div class="dangxuat">
-                            <a href="#" class="logout">Đăng xuất</a>
+                            <a href="#" class="logout">ÄÄng xuáº¥t</a>
                         </div>
         
                     </div>
@@ -37,42 +40,42 @@
                         <div id="left">
                             <table class="bang1">
                             <tr>
-                                <th>Mã sản phẩm:</th>
+                                <th>MÃ£ sáº£n pháº©m:</th>
                                 <td>
                                     <input type="text" name="txtMaSanPham" class="txtsp" id="txtsp" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Tên sản phẩm:</th>
+                                <th>TÃªn sáº£n pháº©m:</th>
                                 <td>
                                     <input type="text" name="txtTenSanPham" class="txtsp" id="txtsp1" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Hãng sản xuất:</th>
+                                <th>HÃ£ng sáº£n xuáº¥t:</th>
                                 <td>
                                     <input type="text" name="txtHangSanXuat" class="txtsp" id="txtsp2" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Tình trạng:</th>
+                                <th>TÃ¬nh tráº¡ng:</th>
                                 <td>
                                     <input type="text" name="txtTinhTrang" class="txtsp" id="txtsp3" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Giá:</th>
+                                <th>GiÃ¡:</th>
                                 <td>
                                     <input type="text" name="txtGiaSanPham" class="txtsp" id="txtsp10" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Camera trước:</th>
+                                <th>Camera trÆ°á»c:</th>
                                 <td>
                                     <input type="text" name="txtCameraTruoc" class="txtsp" id="txtsp4" value="">
                                 </td>
@@ -86,28 +89,28 @@
                             </tr>
 
                             <tr>
-                                <th>Dung lượng pin:</th>
+                                <th>Dung lÆ°á»£ng pin:</th>
                                 <td>
                                     <input type="text" name="txtDungLuongPin" class="txtsp" id="txtsp6" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Tính năng:</th>
+                                <th>TÃ­nh nÄng:</th>
                                 <td>
                                     <input type="text" name="txtTinhNang" class="txtsp" id="txtsp9" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Màu sắc:</th>
+                                <th>MÃ u sáº¯c:</th>
                                 <td>
                                     <input type="text" name="txtMauSac" class="txtsp" id="txtsp7" value="">
                                 </td>
                             </tr>
 
                             <tr>
-                                <th>Bảo mật:</th>
+                                <th>Báº£o máº­t:</th>
                                 <td>
                                     <input type="text" name="txtBaoMat" class="txtsp" id="txtsp8" value="">
                                 </td>
@@ -117,7 +120,7 @@
                         </table>
 
                             <div class="btsub">
-                                <input type="button" value="Thêm" id="btthem">
+                                <input type="button" value="ThÃªm" id="btthem">
                                 <input type="button" value="Reset" id="btreset" onclick="reset()">
                             </div>
                         </div>

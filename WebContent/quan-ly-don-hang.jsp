@@ -76,8 +76,6 @@
                             <th>Phường</th>
                             <th>Quận</th>
                             <th>Chi tiết đơn hàng</th>
-                            <th></th>
-                            <th></th>
                         </tr>
                     </thead>
 

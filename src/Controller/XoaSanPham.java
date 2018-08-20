@@ -32,7 +32,7 @@ public class XoaSanPham extends HttpServlet {
 		int xoaSP =0;
 		xoaSP = SanPhamDAO.XoaSanPham(ma_san_pham);
 		if(xoaSP != 0 ) {
-			request.getRequestDispatcher("success.jsp").forward(request, response);
+			request.getRequestDispatcher("quan-ly-san-pham.jsp").forward(request, response);
 		}
 		else {
 			response.sendRedirect("loi.jsp");

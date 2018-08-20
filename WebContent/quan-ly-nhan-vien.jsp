@@ -1,5 +1,10 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="Database.Database"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="DTO.*" %>
+<%@ page import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quản Lý Nhân Viên</title>
     <link rel="stylesheet" type="text/css" media="screen" href="QLNV.css" />
+    <script src="QLNV.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <%!
+		    Connection db = Database.connect();
+		    Statement stm = null;
+		    ResultSet rs = null;
+		    String query = "SELECT * FROM nhan_vien INNER JOIN chuc_vu ON nhan_vien.ma_chuc_vu = chuc_vu.ma_chuc_vu order by idnhan_vien asc";
+		    
+		    // nên khai báo trực tiếp
+		    
+	%>
 </head>
 <body>
         <div class="top">
@@ -78,10 +94,67 @@
                             </thead>
         
                             <tbody>
-                                <jsp:include page="DanhSachNhanVien"></jsp:include>
+                                <% int id = 0; %>
+		                        <%
+		                        	stm = db.createStatement();
+		                        	rs = stm.executeQuery(query);
+		                        	while(rs.next()){
+		                        	id = Integer.parseInt(rs.getString("idnhan_vien"));
+	                        	%>
+			                        <tr class="odd">	                            
+									    <td><%=rs.getString("idnhan_vien") %></td>
+									    <td><%=rs.getString("username") %> </a></td>
+									    <td><%=rs.getString("password") %></td>
+									    <td><%=rs.getString("ho_nhan_vien") %></td>
+									    <td><a href="chiTietNhanVien?id=<%=rs.getString("idnhan_vien")%>"><%=rs.getString("ten_nhan_vien") %></td>
+									    <td><%=rs.getString("chuc_vu") %></td>
+									    <td><%=rs.getString("email") %></td>
+									    <td><%=rs.getInt("sdt") %></td>
+									    
+			                            <td class="SX">
+			                                <a href="chiTietNhanVien?id=<%=rs.getString("idnhan_vien")%>">
+			                                	<input type="button" value="Sửa" class="xoa">
+			                                </a>
+			                            </td>
+			                            <td class="SX">
+			                                	<input type="button" value="Xóa" class="xoa" onclick="xoa()">
+			                                <!--<a href="#" onclick="xoa()">Xóa</a>  -->
+			                            </td>
+			                        </tr>
+			 					 <%}%>
                             </tbody>
                         </table>
                     </div>
+                    
+                    
+                    
+                    <!--
+                    	<jsp:include page="nhanVienBiXoa"/>
+                    -->
+                    
+                    <div id="myModal" class="modal">
+				        <div class="modal-content">
+				            <span class="close1" onclick="dong()">&times;</span>
+				            <table id="alert">
+				                <tr>
+				                    <th colspan="2">Bạn có muốn xóa sản phẩm không?</th>
+				                </tr>
+				
+				                <tr>
+				                    <td>
+				                    	
+				                    	<a href="XoaNhanVien?id=<%=id%>">
+				                        	<input type="button" value="Có" id="yes" class="btask" onclick="dong()">
+				                        </a>
+				                    </td>
+				
+				                    <td>
+				                  <input type="button" value="Không" id="no" class="btask" onclick="dong()">
+				                    </td>
+				                </tr>
+				            </table>
+				        </div>
+				    </div>
         
         
         

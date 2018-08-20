@@ -13,11 +13,5 @@
 	    <td>${dh.phuong}</td>
 	    <td>${dh.quan}</td>
 	    <td>${dh.chi_tiet}</td>
-	    <td class="SX">
-	        <a href="#">Sửa</a>
-	    </td>
-	    <td class="SX">
-	        <a href="#">Xóa</a>
-	    </td>
 	</tr>
 </c:forEach>   

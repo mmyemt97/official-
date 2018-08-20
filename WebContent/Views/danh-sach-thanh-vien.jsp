@@ -17,10 +17,10 @@
 	    <td>${tv.nuoc}</td>
 	    <td>${tv.zip_code}</td>
 	    <td class="SX">
-	        <a href="#">Sửa</a>
+	        <a href="quan-ly-thanh-vien.jsp">Sửa</a>
 	    </td>
 	    <td class="SX">
-	            <a href="#">Xóa</a>
+	            <a href='XoaThanhVien?id=${tv.iduser}'>Xóa</a>
 	    </td>
 	</tr>
 </c:forEach>

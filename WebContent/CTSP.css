@@ -83,7 +83,7 @@ body{
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 30px;
-    background-color: #00cec9;
+    background-color: #4267B2;
     color: white;
     border-radius: 7px;
 }
@@ -127,7 +127,7 @@ body{
     float: left;
     border: none;
     border-radius: 7px;
-    background-color: #00cec9;
+    background-color: #4267B2;
     color: white;
     font-size: 25px;
     font-weight: bold;
@@ -192,7 +192,7 @@ body{
 
 
 .modal-content{
-    background-color: #00cec9;
+    background-color: #4267B2;
     margin: auto;
     padding: 20px;
     width: 15%;

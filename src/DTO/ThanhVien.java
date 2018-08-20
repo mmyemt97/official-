@@ -18,10 +18,29 @@ public class ThanhVien implements Serializable {
 	private String thanh_pho;
 	private String nuoc;
 	private String zip_code;
+	private int diem;
+	private String loai_the;
 	public ThanhVien() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public int getDiem() {
+		return diem;
+	}
+
+	public void setDiem(int diem) {
+		this.diem = diem;
+	}
+
+	public String getLoai_the() {
+		return loai_the;
+	}
+
+	public void setLoai_the(String loai_the) {
+		this.loai_the = loai_the;
+	}
+
 	public int getIduser() {
 		return iduser;
 	}

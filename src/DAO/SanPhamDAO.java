@@ -274,8 +274,685 @@ public class SanPhamDAO {
 	}
 	
 	
-	//
+	//Tìm SP Theo Hãng
+	public static List<SanPham> timKiemTheoHang(String hang_sxuat){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where hang_san_xuat like '%"+hang_sxuat+"%'");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+				
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;	
+	}
 	
+	
+	//Sản Phẩm Dưới 1 triệu
+	public static List<SanPham> timTheoGiaDuoi1Trieu(){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where gia_san_pham <1000000");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+				
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;
+	}
+	
+	
+	//Sản phẩm từ 1 đến 3 triệu
+	public static List<SanPham> timTheoGia1TrieuDen3Trieu(){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where gia_san_pham >=1000000 and gia_san_pham <3000000 ");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+				
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;
+	}
+	
+	
+	//Sản phẩm từ 3 đến 7 triệu
+	public static List<SanPham> timTheoGia3TrieuDen7Trieu(){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where gia_san_pham >=3000000 and gia_san_pham <7000000 ");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+				
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;
+		
+	}
+	
+	
+	//Sản phẩm từ 7 đến 10 triệu
+	public static List<SanPham> timTheoGia7TrieuDen10Trieu(){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where gia_san_pham >=7000000 and gia_san_pham <10000000 ");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;
+		
+	}
+	
+	
+	//Sản phẩm trên 10 triệu
+	public static List<SanPham> timTheoGiaTren10Trieu(){
+		List<SanPham> dsSanPham = null;
+		try {
+			Connection db = Database.connect();
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery("select * from san_pham where gia_san_pham >=10000000");
+			dsSanPham = new ArrayList<>();
+			while(rs.next()){
+				SanPham sp = new SanPham();
+				sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+				sp.setTenSanPham(rs.getString("ten_san_pham"));
+				sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+				sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+				sp.setTinhTrang(rs.getString("tinh_trang"));
+				Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+				sp.setCamera_truoc(rs.getString("camera_truoc"));
+				sp.setCamera_sau(rs.getString("camera_sau"));
+				sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+				sp.setTinh_nang(rs.getString("tinh_nang"));
+				sp.setBao_mat(rs.getString("bao_mat"));
+				sp.setMau_sac(rs.getString("mau_sac"));
+				dsSanPham.add(sp);
+				
+			}
+			db.close();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dsSanPham;
+		
+	}
+	
+	
+	//Tìm theo hãng và dưới 1 triệu
+	public static List<SanPham> timTheoHangGiaDuoi1Trieu(String brand){
+        List<SanPham> listDuoi1Trieu = new ArrayList<SanPham>();
+        try {
+            Connection db = Database.connect();
+            String sql = "SELECT * FROM san_pham where hang_san_xuat like N'%"+brand+"%' and gia_san_pham <=1000000;";
+            Statement stm = db.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+                sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+                sp.setTinhTrang(rs.getString("tinh_trang"));
+                Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+                sp.setCamera_truoc(rs.getString("camera_truoc"));
+                sp.setCamera_sau(rs.getString("camera_sau"));
+                sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+                sp.setTinh_nang(rs.getString("tinh_nang"));
+                sp.setBao_mat(rs.getString("bao_mat"));
+                sp.setMau_sac(rs.getString("mau_sac"));
+                listDuoi1Trieu.add(sp);
+
+            }
+            db.close();
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+
+        return listDuoi1Trieu;
+    }
+	
+	
+	//Tìm sản phẩm hãng giá 1-3 triệu
+	public static List<SanPham> timTheoHangGia1Den3Trieu(String brand){
+        List<SanPham> list1Den3Trieu = new ArrayList<SanPham>();
+        try {
+            Connection db = Database.connect();
+            String sql = "SELECT * FROM san_pham where hang_san_xuat like N'%"+brand+"%' and gia_san_pham >=1000000 and gia_san_pham <= 3000000;";
+            Statement stm = db.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+                sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+                sp.setTinhTrang(rs.getString("tinh_trang"));
+                Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+                sp.setCamera_truoc(rs.getString("camera_truoc"));
+                sp.setCamera_sau(rs.getString("camera_sau"));
+                sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+                sp.setTinh_nang(rs.getString("tinh_nang"));
+                sp.setBao_mat(rs.getString("bao_mat"));
+                sp.setMau_sac(rs.getString("mau_sac"));
+                list1Den3Trieu.add(sp);
+
+            }
+            db.close();
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        return list1Den3Trieu;
+    }
+	
+	
+	//Tìm sp hãng giá 3-7 triệu
+	public static List<SanPham> timTheoHangGia3Den7rieu(String brand){
+        List<SanPham> list3Den7Trieu = new ArrayList<SanPham>();
+        try {
+            Connection db = Database.connect();
+            String sql = "SELECT * FROM san_pham where hang_san_xuat like N'%"+brand+"%' and gia_san_pham >=3000000 and gia_san_pham <= 7000000;";
+            Statement stm = db.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+                sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+                sp.setTinhTrang(rs.getString("tinh_trang"));
+                Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+                sp.setCamera_truoc(rs.getString("camera_truoc"));
+                sp.setCamera_sau(rs.getString("camera_sau"));
+                sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+                sp.setTinh_nang(rs.getString("tinh_nang"));
+                sp.setBao_mat(rs.getString("bao_mat"));
+                sp.setMau_sac(rs.getString("mau_sac"));
+                list3Den7Trieu.add(sp);
+
+            }
+            db.close();
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        return list3Den7Trieu;
+    }
+	
+	
+	//Tìm sp hãng giá 7-10 triệu
+	public static List<SanPham> timTheoHangGia7Den10rieu(String brand){
+        List<SanPham> list7Den10Trieu = new ArrayList<SanPham>();
+        try {
+            Connection db = Database.connect();
+            String sql = "SELECT * FROM san_pham where hang_san_xuat like N'%"+brand+"%' and gia_san_pham >=7000000 and gia_san_pham <= 10000000;";
+            Statement stm = db.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+                sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+                sp.setTinhTrang(rs.getString("tinh_trang"));
+                Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+                sp.setCamera_truoc(rs.getString("camera_truoc"));
+                sp.setCamera_sau(rs.getString("camera_sau"));
+                sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+                sp.setTinh_nang(rs.getString("tinh_nang"));
+                sp.setBao_mat(rs.getString("bao_mat"));
+                sp.setMau_sac(rs.getString("mau_sac"));
+                list7Den10Trieu.add(sp);
+
+            }
+            db.close();
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        return list7Den10Trieu;
+    }
+	
+	
+	
+	//Tìm sp hãng giá trên 10 triệu
+	public static List<SanPham> timTheoHangGiaTren10Trieu(String brand){
+        List<SanPham> listTren10Trieu = new ArrayList<SanPham>();
+        try {
+            Connection db = Database.connect();
+            String sql = "SELECT * FROM san_pham where hang_san_xuat like N'%"+brand+"%' and gia_san_pham >=10000000;";
+            Statement stm = db.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while(rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMa_san_pham(rs.getInt("ma_san_pham"));
+                sp.setTenSanPham(rs.getString("ten_san_pham"));
+                sp.setHangSanXuat(rs.getString("hang_san_xuat"));
+                sp.setGiaSanPham(rs.getInt("gia_san_pham"));
+                sp.setTinhTrang(rs.getString("tinh_trang"));
+                Blob b = (Blob) rs.getBlob("hinh_anh_mo_phong");
+				
+				// Tách biến blob, ra thành kiểu nhị phân ( InputStream)
+				InputStream inputStream = (InputStream) b.getBinaryStream();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				byte[] buffer = new byte[4096];
+				int bytesRead = -1;
+				 
+				// duyệt qua mảng kiểu byte sau khi lưu ở nhị phân, 
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					// mỗi lần duyệt là lưu vào outStream để lát in ra hình ảnh
+				    outputStream.write(buffer, 0, bytesRead);
+				}
+				 
+				// tạo mảng bytes sau khi duyệt và lưu trong outputstream
+				byte[] imageBytes = outputStream.toByteArray();
+				 
+				// ép kiểu từ byte về lại String, do là dạng base64, 
+				// nên ở thẻ img, phải khai báo data có kiểu là base64
+				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+				 
+				inputStream.close();
+				outputStream.close();
+				sp.setHinh_anh(base64Image);
+                sp.setCamera_truoc(rs.getString("camera_truoc"));
+                sp.setCamera_sau(rs.getString("camera_sau"));
+                sp.setDung_luong_pin(rs.getString("dung_luong_pin"));
+                sp.setTinh_nang(rs.getString("tinh_nang"));
+                sp.setBao_mat(rs.getString("bao_mat"));
+                sp.setMau_sac(rs.getString("mau_sac"));
+                listTren10Trieu.add(sp);
+
+            }
+            db.close();
+        }
+        catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        return listTren10Trieu;
+    }
+
+
 	
 
 }

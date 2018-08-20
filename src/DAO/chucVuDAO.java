@@ -35,4 +35,25 @@ public class chucVuDAO {
 		return dsChucVu;
 		
 	}
+	
+	public static chucVu docChucVu(int ma_chuc_vu) {
+		chucVu cv = null;		
+		
+		try {
+			Connection db = Database.connect();
+			String sql = "SELECT * FROM hethong_muaban.chuc_vu WHERE ma_chuc_vu = " + ma_chuc_vu;
+			Statement stm = db.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while(rs.next()) {
+				cv = new chucVu();
+				cv.setMa_chuc_vu(rs.getInt(0));
+				cv.setChuc_vu(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cv;
+	}
 }

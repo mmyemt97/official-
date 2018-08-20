@@ -16,6 +16,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import Database.*;
+import Encryption.encrypt;
 
 /**
  * Servlet implementation class ThemNVController
@@ -49,6 +50,7 @@ public class ThemNVController extends HttpServlet {
 		System.out.println("id: " + id);
 		String username = request.getParameter("txtusername");
 		String password = request.getParameter("txtpassword");
+		//password = encrypt.hashWith256(password); // ma hoa password
 		String ho_nhan_vien = request.getParameter("txtHoNhanVien");
 		String ten_nhan_vien = request.getParameter("txtTenNhanVien");
 		String email = request.getParameter("txtEmail");

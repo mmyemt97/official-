@@ -1,22 +1,35 @@
-var modal = document.getElementById('myModal');
-var bt = document.getElementById("btthem");
-var span = document.getElementsByClassName("close")[0];
+function changeFunc() {
+    var selectBox = document.getElementById("hang");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    window.open(selectedValue);
+}
+
+function reset() {
+    var form = document.getElementById("fChat");
+
+    form.reset();
+}
+
+function on(){
+	var modal =  document.getElementById("fMess");
+
+	if(modal.style.display == "none")
+		modal.style.display = "block";
+	else
+		modal.style.display = "none";
+}
 
 
-bt.onclick = function(){
+function xoa(){
+    var modal = document.getElementById("myModal");
+
     modal.style.display = "block";
 }
 
-span.onclick = function(){
+
+function dong() {
+    var modal = document.getElementById("myModal");
+
     modal.style.display = "none";
+
 }
-
-window.onclick = function(){
-    if(event.target == modal){
-        modal.style.display = "none";
-    }
-}
-
-
-
-

@@ -9,12 +9,13 @@ function bt1() {
     var txt7 = document.getElementById("txtsp7");
     var txt8 = document.getElementById("txtsp8");
     var save = document.getElementById("btsave");
+    var fchucvu = document.getElementById("fchucvu");
     var edit = document.getElementById("btfix");
     var modal = document.getElementById("myModal");
     
     modal.style.display = "none";
 
-    if(txt.disabled == true && txt1.disabled == true && txt2.disabled == true && txt3.disabled == true && txt4.disabled == true && txt6.disabled == true && txt7.disabled == true)
+    if(txt.disabled == true && txt1.disabled == true && txt2.disabled == true && txt3.disabled == true && txt4.disabled == true && txt6.disabled == true && txt7.disabled == true && fchucvu.disabled == true)
     {
         txt.disabled = false;
         txt1.disabled = false;
@@ -23,9 +24,10 @@ function bt1() {
         txt4.disabled = false;
         txt6.disabled = false;
         txt7.disabled = false;
+        fchucvu.disabled = false;
        
     }
-    else if(txt.disabled == false && txt1.disabled == false && txt2.disabled == false && txt3.disabled == false && txt4.disabled == false && txt6.disabled == false && txt7.disabled == false)
+    else if(txt.disabled == false && txt1.disabled == false && txt2.disabled == false && txt3.disabled == false && txt4.disabled == false && txt6.disabled == false && txt7.disabled == false && fchucvu.disabled == false)
     {
         txt.disabled = true;
         txt1.disabled = true;
@@ -34,6 +36,7 @@ function bt1() {
         txt4.disabled = true;
         txt6.disabled = true;
         txt7.disabled = true;
+        fchucvu.disabled = true;
 
     }
 

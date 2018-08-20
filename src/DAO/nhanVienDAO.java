@@ -26,7 +26,7 @@ public class nhanVienDAO {
 			Connection db = Database.connect();
 			Statement stm = db.createStatement();
 			
-			ResultSet rs = stm.executeQuery("	SELECT * FROM nhan_vien INNER JOIN chuc_vu ON nhan_vien.ma_chuc_vu = chuc_vu.ma_chuc_vu order by idnhan_vien asc");
+			ResultSet rs = stm.executeQuery("SELECT * FROM nhan_vien INNER JOIN chuc_vu ON nhan_vien.ma_chuc_vu = chuc_vu.ma_chuc_vu order by idnhan_vien asc");
 			dsNhanVien = new ArrayList<>();
 			while(rs.next()) {
 				
@@ -113,6 +113,7 @@ public class nhanVienDAO {
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				nv_dangnhap = new nhanVien();
+				nv_dangnhap.setIdnhan_vien(rs.getInt("idnhan_vien"));
 				nv_dangnhap.setUsername(rs.getString("username"));
 				nv_dangnhap.setPassword(rs.getString("password"));
 				nv_dangnhap.setHo_nhan_vien(rs.getString("ho_nhan_vien"));
@@ -211,7 +212,7 @@ public class nhanVienDAO {
 		
 		try {
 			Connection db = Database.connect();
-			String sql = "SELECT * FROM nhan_vien where idnhan_vien =" + id;
+			String sql = "SELECT * FROM nhan_vien INNER JOIN chuc_vu ON nhan_vien.ma_chuc_vu = chuc_vu.ma_chuc_vu where idnhan_vien ="+id;
 			Statement stm;
 			stm = db.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
@@ -226,7 +227,7 @@ public class nhanVienDAO {
 				nv.setMa_chuc_vu(rs.getInt("ma_chuc_vu"));
 				nv.setEmail(rs.getString("email"));
 				nv.setSdt(rs.getInt("sdt"));
-				
+				nv.setChuc_vu(rs.getString("chuc_vu"));
 				
 				// tạo 1 biến kiểu Blob, nhận giá trị từ CSDL về dạng BLob
 				Blob b = (Blob) rs.getBlob("hinh_nhan_vien");
@@ -266,6 +267,38 @@ public class nhanVienDAO {
 		}		
 		return nv;
 	}
+	
+	
+	//Sửa Nhân Viên
+	public static int SuaNhanVien(int idnhan_vien, String username, String password, String ho_nhan_vien, String ten_nhan_vien, String email, int sdt, int ma_chuc_vu) {
+		int sua = 0;
+		try {
+			Connection db = Database.connect();
+			String sql = "UPDATE nhan_vien SET `username`=?, `password`=?,"
+					+ "`ho_nhan_vien` = ?,"
+					+ " `ten_nhan_vien`=?, `email`=?, `sdt`=?,"
+					+ " `ma_chuc_vu`=? WHERE `idnhan_vien`=?";
+			PreparedStatement pst = (PreparedStatement) db.prepareStatement(sql);
+			pst.setString(1, username);
+			pst.setString(2, password);
+			pst.setString(3, ho_nhan_vien);
+			pst.setString(4, ten_nhan_vien);
+			pst.setString(5, email);
+			pst.setInt(6, sdt);
+			pst.setInt(7, ma_chuc_vu);
+			pst.setInt(8, idnhan_vien);
+			
+			sua = pst.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return sua;
+	}
+	
 	
 	
 }

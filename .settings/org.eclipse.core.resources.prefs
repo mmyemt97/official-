@@ -1,8 +1,13 @@
 eclipse.preferences.version=1
+encoding//WebContent/error.jsp=UTF-8
 encoding//src/Controller/DocSanPham.java=UTF-8
 encoding//src/Controller/GopY.java=UTF-8
+encoding//src/Controller/suaNhanVienController.java=UTF-8
+encoding//src/Controller/themLoaiThe.java=UTF-8
+encoding//src/Controller/timSPTheoGia.java=UTF-8
 encoding//src/DAO/DuPhong/CTSanPhamDAO.java=UTF-8
 encoding//src/DAO/SanPhamDAO.java=UTF-8
 encoding//src/DAO/ThanhVienDAO.java=UTF-8
 encoding//src/DAO/nhanVienDAO.java=UTF-8
+encoding//src/Encryption/encrypt.java=UTF-8
 encoding//src/test.java=UTF-8

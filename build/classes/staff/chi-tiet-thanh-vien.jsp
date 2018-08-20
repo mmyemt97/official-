@@ -122,6 +122,20 @@
                                     <input type="text" class="txtsp" id="txtsp12" value="${chitiet.zip_code}" disabled>
                                 </td>
                             </tr>
+                            
+                            <tr>
+                                <th>Điểm:</th>
+                                <td>
+                                    <input type="text" class="txtsp" value="${chitiet.diem}" disabled>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Loại thẻ:</th>
+                                <td>
+                                    <input type="text" class="txtsp" value="${chitiet.loai_the}" disabled>
+                                </td>
+                            </tr>
         
                             <tr>
                                 <td colspan="2">

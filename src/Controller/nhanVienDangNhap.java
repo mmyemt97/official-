@@ -28,10 +28,10 @@ public class nhanVienDangNhap extends HttpServlet {
 		if(nv_dangnhap != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("staff", nv_dangnhap);
-			response.sendRedirect("trang-nhan-vien.jsp");
+			response.sendRedirect("cong-viec.jsp");
 		}
 		else {
-			response.sendRedirect("Views/loi-dang-nhap.jsp");
+			response.sendRedirect("log-in-staff.jsp");
 		}
 	}
 

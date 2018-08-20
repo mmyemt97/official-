@@ -15,7 +15,7 @@ body{
 .top{
     height: 130px;
     width: 100%;
-    background-color: #00cec9;
+    background-color: #4267B2;
 }
 
 #logo{
@@ -91,7 +91,7 @@ body{
     float: left;
     border: none;
     border-radius: 7px;
-    background-color: #00cec9;
+    background-color: #4267B2;
     color: white;
     font-size: 25px;
     font-weight: bold;

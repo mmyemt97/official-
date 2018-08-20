@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,22 +15,22 @@
 </head>
 <body>
         <div class="top">
-                <div class="container">
-                    <div id="logo">
-                        <h3>Thêm Sản Phẩm</h3>
-                    </div>
-        
-                    <div id="nameNV"> 
-                        <p>Xin chào </p>
-                        <!--Tên nhân viên lấy từ CSDL-->
-                        <p>Admin</p>
-                        <div class="dangxuat">
-                            <a href="#" class="logout">Đăng xuất</a>
-                        </div>
-        
-                    </div>
-                </div>
-        </div>
+		        <div class="container">
+		            <div id="logo">
+		                <h3>Quản Lý Sản Phẩm</h3>
+		            </div>
+		
+		            <div id="nameNV"> 
+		                <p>Xin chào </p>
+		                <!--Tên nhân viên lấy từ CSDL-->
+		                <p>${sessionScope.staff.ten_nhan_vien}</p>
+		                <div class="dangxuat">
+		                    <a href="DangXuat" class="logout">Đăng xuất</a>
+		                </div>
+		
+		            </div>
+		        </div>
+		    </div>
 
 
         <div class="main">
