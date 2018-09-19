@@ -18,7 +18,7 @@
 		    Connection db = Database.connect();
 		    Statement stm = null;
 		    ResultSet rs = null;
-		    String query = "SELECT iduser, username, password, ho_user, ten_user, sdt, email, dia_chi, quan, phuong, thanh_pho, nuoc, zip_code, diem, loai_the FROM user INNER JOIN the_tich_diem ON the_tich_diem.id_the_tich_diem = user.iduser INNER JOIN loai_the ON loai_the.id_loai_the = the_tich_diem.id_loai_the";	    
+		    String query = "SELECT `iduser`, `username`, `password`, `ho_user`, `ten_user`, `sdt`, `email`, `dia_chi`, `quan`, `phuong`, `thanh_pho`, `nuoc`, `zip_code`, `diem`, `loai_the` FROM `user` INNER JOIN `the_tich_diem` ON `the_tich_diem`.`id_the_tich_diem` = `user`.`id_the_tich_diem` INNER JOIN `loai_the` ON `loai_the`.`id_loai_the` = `the_tich_diem`.`id_loai_the`";	    
 		    
 		    
 		    // nên khai báo trực tiếp

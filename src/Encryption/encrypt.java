@@ -1,5 +1,5 @@
 package Encryption;
-
+//Import thư viện crypto
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -10,24 +10,35 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class encrypt {
+	//Tạo 1 phương thức mã hóa với SHA 256 với đối số truyền vào là chuỗi cần mã hóa
 	public static String hashWith256(String input) {
+		//Ban đầu chuỗi mã hóa là rỗng
         String encode = "";
         try {
+        	//Khai báo kiểu mã hóa là SHA 256
             MessageDigest md = MessageDigest.getInstance("SHA-256");
+            //Mã hóa từng kí tự
             md.update(input.getBytes());
 
+            //Tạo 1 mãng kiểu byte để lưu chuỗi sau khi băm lần thứ 1 ở kiễu dữ liệu là byte
             byte byteData[] = md.digest();
 
             //convert the byte to hex format method 1
+            //Tạo chuỗi để để mã hóa
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < byteData.length; i++) {
+            	//Tiến hành mã hóa theo thuật toán SHA 256
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
             }
+            //Gán kết quả đã mã hóa cho chuỗi mã hóa ban đầu
             encode = sb.toString();
+            
+          //Bắt trường hợp không tìm thấy thuật toán phù hợp
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
+        //Trả về chuỗi má hóa
         return encode;
     }
 	

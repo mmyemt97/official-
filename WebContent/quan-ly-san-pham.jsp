@@ -392,8 +392,7 @@
 		</html>
 	</c:if>
 	<c:if test="${sessionScope.staff == null}">
-		<h1> Chưa đăng nhập</h1>
-		<a href="log-in-staff.jsp"> Tới trang đăng nhập </a> <br/>
+		<jsp:include page="yeu-cau-log-in.jsp"/>
 	</c:if>
 </c:if>
     
